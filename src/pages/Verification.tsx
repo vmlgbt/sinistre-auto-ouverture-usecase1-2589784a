@@ -4,6 +4,16 @@ import Stepper from '@/components/declaration/Stepper';
 import BottomBar from '@/components/declaration/BottomBar';
 import VerificationForm from '@/components/verification/VerificationForm';
 import ManagerNotes from '@/components/verification/ManagerNotes';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { CheckCircle, Euro } from 'lucide-react';
 
 export interface VerificationData {
   contexte_client: {
@@ -24,6 +34,7 @@ const Verification: React.FC = () => {
   const [currentStep] = useState(2);
   const [managerNotes, setManagerNotes] = useState('');
   const [activeTab, setActiveTab] = useState<'contexte' | 'declaration'>('declaration');
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   const [verificationData, setVerificationData] = useState<VerificationData>({
     contexte_client: {
@@ -54,6 +65,11 @@ const Verification: React.FC = () => {
   });
 
   const handleNext = () => {
+    setShowConfirmDialog(true);
+  };
+
+  const handleConfirmAndProceed = () => {
+    setShowConfirmDialog(false);
     window.history.pushState({}, '', '/?page=solutions');
     window.dispatchEvent(new PopStateEvent('popstate'));
   };
@@ -129,6 +145,43 @@ const Verification: React.FC = () => {
         onPrevious={handlePrevious}
         isNextDisabled={isNextDisabled()}
       />
+
+      {/* Confirmation Dialog */}
+      <Dialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center text-green-700">
+              <CheckCircle className="w-6 h-6 mr-2" />
+              Sinistre garanti
+            </DialogTitle>
+            <DialogDescription className="text-base pt-4">
+              Suite aux informations saisies, nous confirmons que votre sinistre est bien garanti par votre contrat d'assurance.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 my-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h4 className="font-semibold text-blue-900">Franchise applicable</h4>
+                <p className="text-sm text-blue-700 mt-1">Rétroviseur cassé</p>
+              </div>
+              <div className="flex items-center text-blue-900 font-bold text-xl">
+                <Euro className="w-5 h-5 mr-1" />
+                150
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowConfirmDialog(false)}>
+              Annuler
+            </Button>
+            <Button onClick={handleConfirmAndProceed}>
+              Voir les solutions
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
