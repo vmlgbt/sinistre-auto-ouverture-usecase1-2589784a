@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Shield, Car, CreditCard, CheckCircle, XCircle, AlertCircle, Download, User } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
@@ -30,7 +29,7 @@ const ContractInfo: React.FC = () => {
             <p className="text-sm text-gray-900 font-mono">AUTO-2023-567890</p>
           </div>
           <div>
-            <p className="text-sm font-medium text-gray-500">Échéance</p>
+            <p className="text-sm font-medium text-gray-500">Date d'effet</p>
             <p className="text-sm text-gray-900">31/12/2024</p>
           </div>
           <div>
