@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { CheckCircle, Clock, AlertCircle } from 'lucide-react';
 
@@ -89,7 +90,7 @@ const Timeline: React.FC = () => {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
       <h3 className="text-lg font-semibold text-gray-900 mb-6">
-        Offre de service
+        Avancement du Dossier
       </h3>
       
       <div className="relative">
