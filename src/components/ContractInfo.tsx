@@ -1,8 +1,15 @@
+
 import React from 'react';
-import { Shield, Car, CreditCard, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import { Shield, Car, CreditCard, CheckCircle, XCircle, AlertCircle, Download, User } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 const ContractInfo: React.FC = () => {
+  const handleDownloadConditions = () => {
+    console.log('Téléchargement des conditions particulières...');
+    // Logique de téléchargement
+  };
+
   return (
     <div className="space-y-6">
       {/* Informations Contrat */}
@@ -17,7 +24,7 @@ const ContractInfo: React.FC = () => {
           </Badge>
         </div>
         
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
             <p className="text-sm font-medium text-gray-500">N° Contrat</p>
             <p className="text-sm text-gray-900 font-mono">AUTO-2023-567890</p>
@@ -34,6 +41,19 @@ const ContractInfo: React.FC = () => {
             <p className="text-sm font-medium text-gray-500">Prime annuelle</p>
             <p className="text-sm text-gray-900">1 248€</p>
           </div>
+        </div>
+
+        {/* Lien de téléchargement des conditions particulières */}
+        <div className="pt-4 border-t border-gray-200">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={handleDownloadConditions}
+            className="flex items-center w-full justify-center"
+          >
+            <Download className="w-4 h-4 mr-2" />
+            Télécharger les conditions particulières
+          </Button>
         </div>
       </div>
 
@@ -71,6 +91,26 @@ const ContractInfo: React.FC = () => {
             <div>
               <p className="text-sm font-medium text-gray-500">Kilométrage</p>
               <p className="text-sm text-gray-900">67 500 km</p>
+            </div>
+          </div>
+
+          {/* Nouvelles informations sur les personnes */}
+          <div className="pt-4 border-t border-gray-200">
+            <h4 className="text-sm font-semibold text-gray-900 mb-3 flex items-center">
+              <User className="w-4 h-4 mr-2 text-axa-blue" />
+              Personnes associées
+            </h4>
+            <div className="grid grid-cols-1 gap-3">
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <p className="text-sm font-medium text-gray-500">Conducteur désigné au contrat</p>
+                <p className="text-sm text-gray-900">Marc Dubois</p>
+                <p className="text-xs text-gray-600">Conducteur principal - Permis depuis 1994</p>
+              </div>
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <p className="text-sm font-medium text-gray-500">Titulaire de la carte grise</p>
+                <p className="text-sm text-gray-900">Marc Dubois</p>
+                <p className="text-xs text-gray-600">Propriétaire du véhicule</p>
+              </div>
             </div>
           </div>
         </div>
