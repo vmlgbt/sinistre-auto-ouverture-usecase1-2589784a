@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Sparkle, Shield, MapPin } from 'lucide-react';
+import { ArrowLeft, Download, Send, Sparkle, Shield, MapPin } from 'lucide-react';
 import Header from '@/components/Header';
 import Stepper from '@/components/declaration/Stepper';
 import SinisterAnalysisCard from '@/components/solutions/SinisterAnalysisCard';
@@ -17,6 +17,16 @@ const Solutions: React.FC = () => {
   const handleGoBack = () => {
     window.history.pushState({}, '', '/?page=verification');
     window.dispatchEvent(new PopStateEvent('popstate'));
+  };
+
+  const handleExportReport = () => {
+    console.log('Export du rapport de sinistre');
+    // Logique d'export
+  };
+
+  const handleSendToClient = () => {
+    console.log('Envoi des propositions au client');
+    // Logique d'envoi
   };
 
   const handleChoiceSelect = (choice: 'compensation' | 'garage') => {
@@ -52,6 +62,16 @@ const Solutions: React.FC = () => {
               <ArrowLeft className="w-4 h-4 mr-2" />
               Retour à la vérification
             </Button>
+            <div className="flex space-x-2">
+              <Button variant="outline" onClick={handleExportReport}>
+                <Download className="w-4 h-4 mr-2" />
+                Exporter le rapport
+              </Button>
+              <Button onClick={handleSendToClient}>
+                <Send className="w-4 h-4 mr-2" />
+                Envoyer au client
+              </Button>
+            </div>
           </div>
           
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
