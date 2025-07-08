@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, Euro, Shield, Info, Sparkle, ArrowRight } from 'lucide-react';
+import { CheckCircle, Euro, Shield, Info, Sparkle } from 'lucide-react';
 
 interface ConfirmationDialogProps {
   open: boolean;
@@ -21,8 +21,7 @@ interface ConfirmationDialogProps {
 const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
   open,
   onOpenChange,
-  onConfirmAndProceed,
-  onDirectNext
+  onConfirmAndProceed
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -148,14 +147,6 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
               className="min-w-[100px]"
             >
               Annuler
-            </Button>
-            <Button 
-              variant="default" 
-              onClick={onDirectNext}
-              className="flex items-center min-w-[160px]"
-            >
-              <ArrowRight className="w-4 h-4 mr-2" />
-              Passer à l'étape suivante
             </Button>
             <Button 
               onClick={onConfirmAndProceed}
