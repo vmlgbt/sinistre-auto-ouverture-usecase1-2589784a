@@ -12,7 +12,7 @@ const ContexteClient: React.FC = () => {
         {/* Header Section */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Contexte Client - Dossier SIN-2024-001234
+            Contexte Client - N° de sinistre :170492218073
           </h2>
           <p className="text-gray-600">
             Sinistre Auto - Marc Dubois - Peugeot 308 (AB-123-CD)

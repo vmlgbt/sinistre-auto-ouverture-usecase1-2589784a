@@ -7,7 +7,7 @@ import { Mail, Send, Printer, Sparkle, Edit } from 'lucide-react';
 
 const MailTemplate: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [emailContent, setEmailContent] = useState(`Objet : Déclaration d'accident de parking - Dossier SIN-2024-001234
+  const [emailContent, setEmailContent] = useState(`Objet : Déclaration d'accident de parking - N° de sinistre :170492218073
 
 Madame, Monsieur Dubois,
 

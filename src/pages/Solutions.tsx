@@ -75,7 +75,7 @@ const Solutions: React.FC = () => {
           </div>
           
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Solutions et propositions - Dossier SIN-2024-001234
+            Solutions et propositions - N° de sinistre :170492218073
           </h1>
           <p className="text-gray-600">
             Sinistre Auto - Marc Dubois - Peugeot 308 (AB-123-CD)

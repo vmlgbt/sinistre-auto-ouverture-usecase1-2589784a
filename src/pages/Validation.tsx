@@ -30,7 +30,7 @@ const Validation: React.FC = () => {
         {/* Header */}
         <div className="px-6 pt-6 pb-4 flex-shrink-0">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Validation du dossier - Dossier SIN-2024-001234
+            Validation du dossier - N° de sinistre :170492218073
           </h1>
           <p className="text-gray-600">
             Sinistre Auto - Marc Dubois - Peugeot 308 (AB-123-CD)
