@@ -13,6 +13,9 @@ interface TimelineEvent {
 }
 
 const Timeline: React.FC = () => {
+  // Vérifier si la validation est terminée
+  const isValidationCompleted = localStorage.getItem('validationCompleted') === 'true';
+
   const events: TimelineEvent[] = [
     {
       id: '1',
@@ -29,20 +32,29 @@ const Timeline: React.FC = () => {
       description: 'Dossier n° SIN-2024-001234 en cours de traitement',
       date: '15/01/2024',
       time: '09:35',
-      status: 'current',
-      type: 'info'
+      status: 'completed',
+      type: 'success'
     },
     {
       id: '3', 
-      title: 'En attente de traitement',
-      description: 'Dossier en attente de prise en charge par un gestionnaire',
-      date: 'À planifier',
-      time: '',
-      status: 'pending',
-      type: 'warning'
+      title: 'Validation gestionnaire',
+      description: 'Dossier validé par le gestionnaire et courrier envoyé au client',
+      date: isValidationCompleted ? '08/07/2025' : '15/01/2024',
+      time: isValidationCompleted ? '14:20' : '10:00',
+      status: isValidationCompleted ? 'completed' : 'current',
+      type: isValidationCompleted ? 'success' : 'info'
     },
     {
       id: '4',
+      title: 'En attente de documents',
+      description: 'Attente de réception des documents manquants du client',
+      date: isValidationCompleted ? 'En cours' : 'À planifier',
+      time: '',
+      status: isValidationCompleted ? 'current' : 'pending',
+      type: isValidationCompleted ? 'info' : 'warning'
+    },
+    {
+      id: '5',
       title: 'Contact expert',
       description: 'Planification de l\'expertise sur site',
       date: 'À planifier',
@@ -51,7 +63,7 @@ const Timeline: React.FC = () => {
       type: 'warning'
     },
     {
-      id: '5',
+      id: '6',
       title: 'Validation du dossier',
       description: 'Validation finale et traitement du remboursement',
       date: 'À définir',

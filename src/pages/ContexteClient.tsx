@@ -4,6 +4,7 @@ import Timeline from '@/components/Timeline';
 import DossierInfo from '@/components/DossierInfo';
 import ContractInfo from '@/components/ContractInfo';
 import DocumentsClient from '@/components/contexte/DocumentsClient';
+import NextStepsClient from '@/components/contexte/NextStepsClient';
 
 const ContexteClient: React.FC = () => {
   return (
@@ -19,7 +20,7 @@ const ContexteClient: React.FC = () => {
           </p>
         </div>
 
-        {/* Main Content Grid - Reorganized to 2 columns */}
+        {/* Main Content Grid - Réorganisé en 2 colonnes */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left Column - Timeline, Documents Client et Coordonnées Client */}
           <div className="space-y-6">
@@ -28,9 +29,10 @@ const ContexteClient: React.FC = () => {
             <DossierInfo showOnlyClientInfo={true} />
           </div>
 
-          {/* Right Column - Contrat uniquement */}
+          {/* Right Column - Contrat et Prochaines étapes */}
           <div className="space-y-6">
             <ContractInfo />
+            <NextStepsClient />
           </div>
         </div>
       </div>

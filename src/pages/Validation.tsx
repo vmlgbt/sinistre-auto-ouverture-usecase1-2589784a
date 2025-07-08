@@ -7,7 +7,6 @@ import SinisterSummary from '@/components/validation/SinisterSummary';
 import ClientVehicleData from '@/components/validation/ClientVehicleData';
 import DocumentsManager from '@/components/validation/DocumentsManager';
 import MailTemplate from '@/components/validation/MailTemplate';
-import NextStepsPanel from '@/components/validation/NextStepsPanel';
 import { CheckCircle, X } from 'lucide-react';
 
 const Validation: React.FC = () => {
@@ -16,8 +15,12 @@ const Validation: React.FC = () => {
   const [emailSentBanner, setEmailSentBanner] = useState<string | null>(null);
 
   const handleNext = () => {
-    console.log('Finalisation du dossier');
-    // Logique de finalisation
+    console.log('Finalisation du dossier - redirection vers contexte client');
+    // Marquer l'étape de validation comme terminée
+    localStorage.setItem('validationCompleted', 'true');
+    // Rediriger vers la page contexte client
+    window.history.pushState({}, '', '/');
+    window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
   const handlePrevious = () => {
@@ -78,7 +81,6 @@ const Validation: React.FC = () => {
             <SinisterSummary />
             <ClientVehicleData />
             <DocumentsManager />
-            <NextStepsPanel />
           </div>
 
           {/* Right Panel - Mail Template */}
