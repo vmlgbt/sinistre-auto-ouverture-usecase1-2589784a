@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Stepper from '@/components/declaration/Stepper';
@@ -148,20 +149,20 @@ const Verification: React.FC = () => {
         isNextDisabled={isNextDisabled()}
       />
 
-      {/* Enhanced Confirmation Dialog with ScrollArea */}
+      {/* Fixed Confirmation Dialog with proper ScrollArea */}
       <Dialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
-        <DialogContent className="sm:max-w-[600px] max-h-[80vh] flex flex-col">
-          <DialogHeader className="flex-shrink-0">
+        <DialogContent className="sm:max-w-[600px] max-h-[85vh] overflow-hidden">
+          <DialogHeader className="flex-shrink-0 pb-4">
             <DialogTitle className="flex items-center text-green-700 text-xl">
               <CheckCircle className="w-6 h-6 mr-2" />
               Sinistre garanti - Dommages Tous Accidents
             </DialogTitle>
-            <DialogDescription className="text-base pt-4">
+            <DialogDescription className="text-base pt-2">
               Suite aux informations saisies, nous confirmons que votre sinistre est bien garanti par votre contrat d'assurance au titre de la garantie "Dommages Tous Accidents".
             </DialogDescription>
           </DialogHeader>
           
-          <ScrollArea className="flex-1 pr-4">
+          <ScrollArea className="h-96 pr-4">
             <div className="space-y-4">
               {/* Coverage Information */}
               <div className="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -256,7 +257,7 @@ const Verification: React.FC = () => {
             </div>
           </ScrollArea>
 
-          <DialogFooter className="flex-shrink-0 mt-4">
+          <DialogFooter className="flex-shrink-0 pt-4">
             <Button variant="outline" onClick={() => setShowConfirmDialog(false)}>
               Annuler
             </Button>
