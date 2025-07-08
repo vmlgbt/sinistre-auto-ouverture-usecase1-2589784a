@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, Euro, Shield, Info, Sparkle } from 'lucide-react';
+import { CheckCircle, Euro, Shield, Info, Sparkle, ArrowRight } from 'lucide-react';
 
 export interface VerificationData {
   contexte_client: {
@@ -267,14 +267,22 @@ const Verification: React.FC = () => {
             </div>
           </ScrollArea>
 
-          <DialogFooter className="flex-shrink-0 pt-4">
+          <DialogFooter className="flex-shrink-0 pt-4 flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 space-y-2 space-y-reverse sm:space-y-0">
             <Button variant="outline" onClick={() => setShowConfirmDialog(false)}>
               Annuler
             </Button>
-            <Button variant="outline" onClick={handleDirectNext}>
+            <Button 
+              variant="default" 
+              onClick={handleDirectNext}
+              className="flex items-center"
+            >
+              <ArrowRight className="w-4 h-4 mr-2" />
               Passer à l'étape suivante
             </Button>
-            <Button onClick={handleConfirmAndProceed}>
+            <Button 
+              onClick={handleConfirmAndProceed}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
               Voir les solutions
             </Button>
           </DialogFooter>
