@@ -82,6 +82,15 @@ const Solutions: React.FC = () => {
         <div className="grid grid-cols-12 gap-6 flex-1 px-6 pb-6">
           {/* Left Panel - Solutions */}
           <div className="col-span-8 space-y-6">
+            {/* Always show Evaluation Card first */}
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                Évaluation du sinistre
+              </h2>
+              <EvaluationCard />
+            </div>
+
+            {/* Manager Choices */}
             {!managerChoice ? (
               // Choice Selection
               <div className="space-y-6">
@@ -155,10 +164,7 @@ const Solutions: React.FC = () => {
                 </div>
 
                 {managerChoice === 'compensation' && (
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <EvaluationCard />
-                    <CompensationCard />
-                  </div>
+                  <CompensationCard />
                 )}
 
                 {managerChoice === 'garage' && (
