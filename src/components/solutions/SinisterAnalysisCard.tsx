@@ -8,14 +8,11 @@ const SinisterAnalysisCard: React.FC = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center text-blue-700 text-xl">
-          <Sparkle className="w-6 h-6 mr-2 text-blue-500" />
-          Analyse complète du sinistre par IA
-          <Sparkle className="w-5 h-5 ml-2 text-purple-500" />
-        </CardTitle>
-        <div className="flex items-center text-sm text-blue-600 mt-2">
-          <Sparkle className="w-4 h-4 mr-1" />
-          Évaluation automatique réalisée par intelligence artificielle
+        <div className="bg-purple-100 border border-purple-300 rounded-lg p-3 mb-4">
+          <div className="flex items-center text-purple-800">
+            <Sparkle className="w-4 h-4 mr-2" />
+            <span className="text-sm font-medium">Évaluation automatique réalisée par intelligence artificielle</span>
+          </div>
         </div>
       </CardHeader>
       
