@@ -7,9 +7,7 @@ import Header from '@/components/Header';
 import Stepper from '@/components/declaration/Stepper';
 import EvaluationCard from '@/components/solutions/EvaluationCard';
 import CompensationCard from '@/components/solutions/CompensationCard';
-import NextSteps from '@/components/solutions/NextSteps';
 import PartnerGarages from '@/components/solutions/PartnerGarages';
-import DocumentsSection from '@/components/solutions/DocumentsSection';
 import BottomBar from '@/components/declaration/BottomBar';
 
 const Solutions: React.FC = () => {
@@ -89,10 +87,9 @@ const Solutions: React.FC = () => {
           <Stepper currentStep={3} />
         </div>
 
-        {/* Main Content */}
-        <div className="grid grid-cols-12 gap-6 flex-1 px-6 pb-32">
-          {/* Left Panel - Solutions */}
-          <div className="col-span-8 space-y-6">
+        {/* Main Content - Centered layout */}
+        <div className="max-w-4xl mx-auto w-full flex-1 px-6 pb-32">
+          <div className="space-y-6">
             {/* Always show Evaluation Card first */}
             <div>
               <h2 className="text-xl font-semibold text-gray-900 mb-4">
@@ -181,16 +178,8 @@ const Solutions: React.FC = () => {
                 {managerChoice === 'garage' && (
                   <PartnerGarages />
                 )}
-
-                {/* Documents Section - Always show when a choice is made */}
-                <DocumentsSection />
               </div>
             )}
-          </div>
-
-          {/* Right Panel - Next Steps */}
-          <div className="col-span-4">
-            <NextSteps />
           </div>
         </div>
       </div>
