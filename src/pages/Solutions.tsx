@@ -10,6 +10,7 @@ import CompensationCard from '@/components/solutions/CompensationCard';
 import NextSteps from '@/components/solutions/NextSteps';
 import PartnerGarages from '@/components/solutions/PartnerGarages';
 import DocumentsSection from '@/components/solutions/DocumentsSection';
+import BottomBar from '@/components/declaration/BottomBar';
 
 const Solutions: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState<'contexte' | 'declaration'>('declaration');
@@ -36,6 +37,16 @@ const Solutions: React.FC = () => {
 
   const handleBackToChoices = () => {
     setManagerChoice(null);
+  };
+
+  const handleNext = () => {
+    window.history.pushState({}, '', '/?page=validation');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  };
+
+  const handlePrevious = () => {
+    window.history.pushState({}, '', '/?page=verification');
+    window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
   return (
@@ -79,7 +90,7 @@ const Solutions: React.FC = () => {
         </div>
 
         {/* Main Content */}
-        <div className="grid grid-cols-12 gap-6 flex-1 px-6 pb-6">
+        <div className="grid grid-cols-12 gap-6 flex-1 px-6 pb-32">
           {/* Left Panel - Solutions */}
           <div className="col-span-8 space-y-6">
             {/* Always show Evaluation Card first */}
@@ -183,6 +194,14 @@ const Solutions: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {/* Bottom Bar */}
+      <BottomBar
+        currentStep={3}
+        onNext={handleNext}
+        onPrevious={handlePrevious}
+        isNextDisabled={managerChoice === null}
+      />
     </div>
   );
 };

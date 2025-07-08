@@ -8,6 +8,7 @@ import ContexteClient from '@/pages/ContexteClient';
 import Declaration from '@/pages/Declaration';
 import Verification from '@/pages/Verification';
 import Solutions from '@/pages/Solutions';
+import Validation from '@/pages/Validation';
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,9 @@ const App = () => {
     if (currentPage === 'solutions') {
       return <Solutions />;
     }
+    if (currentPage === 'validation') {
+      return <Validation />;
+    }
     return activeTab === 'contexte' ? <ContexteClient /> : <Declaration />;
   };
 
@@ -44,7 +48,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <div className="min-h-screen bg-gray-50">
-          {currentPage !== 'verification' && currentPage !== 'solutions' && (
+          {currentPage !== 'verification' && currentPage !== 'solutions' && currentPage !== 'validation' && (
             <Header activeTab={activeTab} onTabChange={setActiveTab} />
           )}
           <main>
