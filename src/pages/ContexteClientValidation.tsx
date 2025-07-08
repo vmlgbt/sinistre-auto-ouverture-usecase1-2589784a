@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Timeline from '@/components/Timeline';
+import TimelineValidation from '@/components/TimelineValidation';
 import DossierInfo from '@/components/DossierInfo';
 import ContractInfo from '@/components/ContractInfo';
 import DocumentsClient from '@/components/contexte/DocumentsClient';
@@ -13,7 +13,7 @@ const ContexteClientValidation: React.FC = () => {
         {/* Header Section */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Contexte Client - N° de sinistre :170492218073
+            Contexte Client - Post Validation - N° de sinistre :170492218073
           </h2>
           <p className="text-gray-600">
             Sinistre Auto - Marc Dubois - Peugeot 308 (AB-123-CD)
@@ -24,7 +24,7 @@ const ContexteClientValidation: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left Column - Timeline, Prochaines étapes, Documents Client et Coordonnées Client */}
           <div className="space-y-6">
-            <Timeline />
+            <TimelineValidation />
             <NextStepsClient />
             <DocumentsClient />
             <DossierInfo showOnlyClientInfo={true} />
