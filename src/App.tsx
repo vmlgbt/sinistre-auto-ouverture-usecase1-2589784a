@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -5,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Header from '@/components/Header';
 import ContexteClient from '@/pages/ContexteClient';
+import ContexteClientValidation from '@/pages/ContexteClientValidation';
 import Declaration from '@/pages/Declaration';
 import Verification from '@/pages/Verification';
 import Solutions from '@/pages/Solutions';
@@ -39,6 +41,9 @@ const App = () => {
     if (currentPage === 'validation') {
       return <Validation />;
     }
+    if (currentPage === 'contexte-validation') {
+      return <ContexteClientValidation />;
+    }
     return activeTab === 'contexte' ? <ContexteClient /> : <Declaration />;
   };
 
@@ -48,7 +53,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <div className="min-h-screen bg-gray-50">
-          {currentPage !== 'verification' && currentPage !== 'solutions' && currentPage !== 'validation' && (
+          {currentPage !== 'verification' && currentPage !== 'solutions' && currentPage !== 'validation' && currentPage !== 'contexte-validation' && (
             <Header activeTab={activeTab} onTabChange={setActiveTab} />
           )}
           <main>

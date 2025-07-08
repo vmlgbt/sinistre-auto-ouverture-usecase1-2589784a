@@ -19,7 +19,7 @@ const Validation: React.FC = () => {
     // Marquer l'étape de validation comme terminée
     localStorage.setItem('validationCompleted', 'true');
     // Rediriger vers la nouvelle page contexte client validation
-    window.history.pushState({}, '', '/?page=contexte-client-validation');
+    window.history.pushState({}, '', '/?page=contexte-validation');
     window.dispatchEvent(new PopStateEvent('popstate'));
   };
 

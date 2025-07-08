@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useEffect } from 'react';
 import ContexteClientValidation from './ContexteClientValidation';
@@ -12,6 +13,10 @@ const Index: React.FC = () => {
     const searchParams = new URLSearchParams(window.location.search);
 
     if (searchParams.get('page') === 'contexte-client-validation') {
+      return <ContexteClientValidation />;
+    }
+
+    if (searchParams.get('page') === 'contexte-validation') {
       return <ContexteClientValidation />;
     }
 
