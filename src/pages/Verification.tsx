@@ -267,7 +267,7 @@ const Verification: React.FC = () => {
             </div>
           </ScrollArea>
 
-          <DialogFooter className="flex-shrink-0 pt-4 flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 space-y-2 space-y-reverse sm:space-y-0">
+          <DialogFooter className="flex-shrink-0 pt-4">
             <Button variant="outline" onClick={() => setShowConfirmDialog(false)}>
               Annuler
             </Button>
