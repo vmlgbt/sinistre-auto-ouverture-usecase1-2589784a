@@ -26,8 +26,8 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px] max-h-[85vh] overflow-hidden">
-        <DialogHeader className="flex-shrink-0 pb-4">
+      <DialogContent className="sm:max-w-[600px] max-h-[85vh] flex flex-col p-0">
+        <DialogHeader className="flex-shrink-0 p-6 pb-4">
           <DialogTitle className="flex items-center text-green-700 text-xl">
             <CheckCircle className="w-6 h-6 mr-2" />
             Sinistre garanti - Dommages Tous Accidents
@@ -42,8 +42,8 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
           </DialogDescription>
         </DialogHeader>
         
-        <ScrollArea className="h-96 pr-4">
-          <div className="space-y-4">
+        <ScrollArea className="flex-1 px-6">
+          <div className="space-y-4 pb-4">
             {/* Coverage Information */}
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
               <div className="flex items-start">
@@ -137,25 +137,34 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
           </div>
         </ScrollArea>
 
-        {/* Force visible footer with explicit styles */}
-        <div className="flex flex-row justify-end gap-2 pt-4 border-t bg-white">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Annuler
-          </Button>
-          <Button 
-            variant="default" 
-            onClick={onDirectNext}
-            className="flex items-center"
-          >
-            <ArrowRight className="w-4 h-4 mr-2" />
-            Passer à l'étape suivante
-          </Button>
-          <Button 
-            onClick={onConfirmAndProceed}
-            className="bg-blue-600 hover:bg-blue-700"
-          >
-            Voir les solutions
-          </Button>
+        {/* Footer avec boutons - Structure fixe et visible */}
+        <div 
+          className="flex-shrink-0 w-full bg-white border-t border-gray-200 p-6"
+          style={{ position: 'sticky', bottom: 0, zIndex: 50 }}
+        >
+          <div className="flex justify-end gap-3 w-full">
+            <Button 
+              variant="outline" 
+              onClick={() => onOpenChange(false)}
+              className="min-w-[100px]"
+            >
+              Annuler
+            </Button>
+            <Button 
+              variant="default" 
+              onClick={onDirectNext}
+              className="flex items-center min-w-[160px]"
+            >
+              <ArrowRight className="w-4 h-4 mr-2" />
+              Passer à l'étape suivante
+            </Button>
+            <Button 
+              onClick={onConfirmAndProceed}
+              className="bg-blue-600 hover:bg-blue-700 min-w-[140px]"
+            >
+              Voir les solutions
+            </Button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
