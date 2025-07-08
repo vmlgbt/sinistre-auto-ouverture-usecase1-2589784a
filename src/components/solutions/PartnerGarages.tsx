@@ -1,10 +1,10 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { MapPin, Star, Calendar, Phone, Clock, CheckCircle, RefreshCw, User, Home } from 'lucide-react';
+import GarageMap from './GarageMap';
 
 interface Garage {
   id: string;
@@ -91,6 +91,11 @@ const PartnerGarages: React.FC = () => {
       setGarages(updatedGarages);
       setIsRefreshing(false);
     }, 1500);
+  };
+
+  const handleGarageSelect = (garageId: string) => {
+    setSelectedGarage(garageId);
+    setSelectedSlot(null); // Reset slot selection when changing garage
   };
 
   const formatDate = (dateStr: string) => {
@@ -180,64 +185,80 @@ const PartnerGarages: React.FC = () => {
           Garages recherchés depuis : <span className="font-medium ml-1">{currentAddress}</span>
         </div>
 
+        {/* Carte des garages */}
+        <div>
+          <h4 className="font-semibold text-gray-900 mb-3">Localisation des garages</h4>
+          <GarageMap 
+            garages={garages}
+            selectedGarage={selectedGarage}
+            onGarageSelect={handleGarageSelect}
+            centerAddress={currentAddress}
+          />
+        </div>
+
         {/* Liste des garages */}
-        {garages.map((garage) => (
-          <div key={garage.id} className={`border rounded-lg p-4 transition-all cursor-pointer ${
-            selectedGarage === garage.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'
-          }`} onClick={() => setSelectedGarage(garage.id)}>
-            <div className="space-y-3">
-              <div className="flex items-start justify-between">
-                <div>
-                  <h4 className="font-semibold text-lg">{garage.name}</h4>
-                  <div className="flex items-center text-sm text-gray-600 mt-1">
-                    <MapPin className="w-4 h-4 mr-1" />
-                    {garage.address} • {garage.distance}
+        <div>
+          <h4 className="font-semibold text-gray-900 mb-3">Liste des garages disponibles</h4>
+          <div className="space-y-4">
+            {garages.map((garage) => (
+              <div key={garage.id} className={`border rounded-lg p-4 transition-all cursor-pointer ${
+                selectedGarage === garage.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'
+              }`} onClick={() => handleGarageSelect(garage.id)}>
+                <div className="space-y-3">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h4 className="font-semibold text-lg">{garage.name}</h4>
+                      <div className="flex items-center text-sm text-gray-600 mt-1">
+                        <MapPin className="w-4 h-4 mr-1" />
+                        {garage.address} • {garage.distance}
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <Star className="w-4 h-4 text-yellow-400 mr-1" />
+                      <span className="font-medium">{garage.rating}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center text-sm text-gray-600">
+                    <Phone className="w-4 h-4 mr-1" />
+                    {garage.phone}
+                  </div>
+
+                  {/* Disponibilités toujours affichées */}
+                  <div className="border-t pt-4 mt-4">
+                    <h5 className="font-medium mb-3 flex items-center">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      Créneaux disponibles
+                    </h5>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                      {garage.availableSlots.map((slot, index) => (
+                        <button
+                          key={index}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedSlot(slot);
+                            setSelectedGarage(garage.id);
+                          }}
+                          className={`p-3 rounded border text-sm transition-all ${
+                            selectedSlot?.date === slot.date && selectedSlot?.time === slot.time && selectedGarage === garage.id
+                              ? 'border-green-500 bg-green-50 text-green-800'
+                              : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50'
+                          }`}
+                        >
+                          <div className="font-medium">{formatDate(slot.date)}</div>
+                          <div className="flex items-center justify-center mt-1">
+                            <Clock className="w-3 h-3 mr-1" />
+                            {slot.time}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center">
-                  <Star className="w-4 h-4 text-yellow-400 mr-1" />
-                  <span className="font-medium">{garage.rating}</span>
-                </div>
               </div>
-
-              <div className="flex items-center text-sm text-gray-600">
-                <Phone className="w-4 h-4 mr-1" />
-                {garage.phone}
-              </div>
-
-              {/* Disponibilités toujours affichées */}
-              <div className="border-t pt-4 mt-4">
-                <h5 className="font-medium mb-3 flex items-center">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  Créneaux disponibles
-                </h5>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                  {garage.availableSlots.map((slot, index) => (
-                    <button
-                      key={index}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedSlot(slot);
-                        setSelectedGarage(garage.id);
-                      }}
-                      className={`p-3 rounded border text-sm transition-all ${
-                        selectedSlot?.date === slot.date && selectedSlot?.time === slot.time && selectedGarage === garage.id
-                          ? 'border-green-500 bg-green-50 text-green-800'
-                          : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50'
-                      }`}
-                    >
-                      <div className="font-medium">{formatDate(slot.date)}</div>
-                      <div className="flex items-center justify-center mt-1">
-                        <Clock className="w-3 h-3 mr-1" />
-                        {slot.time}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
-        ))}
+        </div>
 
         {selectedGarage && selectedSlot && (
           <div className="bg-green-50 border border-green-200 rounded-lg p-4">
