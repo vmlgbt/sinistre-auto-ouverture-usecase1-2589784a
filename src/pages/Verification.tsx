@@ -12,6 +12,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Euro, Shield, Info } from 'lucide-react';
 
@@ -46,20 +47,21 @@ const Verification: React.FC = () => {
     contexte_sinistre: {
       title: 'Contexte du Sinistre',
       questions: [
-        { id: '2', question: 'Où avez-vous découvert les dommages sur votre véhicule ?', answer: 'Devant mon domicile', isAutoFilled: true },
-        { id: '3', question: 'À quel moment avez-vous découvert les dommages ?', answer: 'En sortant de chez moi', isAutoFilled: true },
-        { id: '8', question: 'Y a-t-il des témoins de l\'incident ?', answer: 'Non', isAutoFilled: true },
-        { id: '10', question: 'Depuis combien de temps avez-vous découvert ces dommages ?', answer: '', isAutoFilled: false }
+        { id: '2', question: 'Où avez-vous découvert les dommages sur votre véhicule ?', answer: 'Parking du centre commercial Carrefour à Montigny le Bretonneux (78300)', isAutoFilled: true },
+        { id: '3', question: 'À quel moment avez-vous découvert les dommages ?', answer: 'Ce matin vers 10h30 en revenant des courses', isAutoFilled: true },
+        { id: '8', question: 'Y a-t-il des témoins de l\'incident ?', answer: 'Non, aucun témoin', isAutoFilled: true },
+        { id: '10', question: 'Depuis combien de temps avez-vous découvert ces dommages ?', answer: 'Découvert le jour même', isAutoFilled: true }
       ]
     },
     vehicule_assure: {
       title: 'Véhicule Assuré',
       questions: [
         { id: '4', question: 'Marque et modèle du véhicule', answer: 'Peugeot 308', isAutoFilled: true },
-        { id: '5', question: 'Quelles parties du véhicule sont endommagées ?', answer: ['Pare-choc avant', 'Aile avant droite'], isAutoFilled: true },
+        { id: '5', question: 'Quelles parties du véhicule sont endommagées ?', answer: ['Rétroviseur droit', 'Aile avant droite'], isAutoFilled: true },
         { id: '6', question: 'Estimation des dégâts (en euros)', answer: '800', isAutoFilled: true },
-        { id: '7', question: 'Type de dommages constatés', answer: ['Bosses', 'Rayures profondes'], isAutoFilled: true },
-        { id: '9', question: 'Le véhicule est-il encore utilisable ?', answer: '', isAutoFilled: false }
+        { id: '7', question: 'Type de dommages constatés', answer: ['Rétroviseur cassé', 'Rayure longue sur l\'aile'], isAutoFilled: true },
+        { id: '9', question: 'Le véhicule est-il encore utilisable ?', answer: 'Oui, roulant sans voyant ni fuite', isAutoFilled: true },
+        { id: '11', question: 'Kilométrage du véhicule', answer: 'Au-dessus de 42 000 KM', isAutoFilled: true }
       ]
     }
   });
@@ -146,10 +148,10 @@ const Verification: React.FC = () => {
         isNextDisabled={isNextDisabled()}
       />
 
-      {/* Enhanced Confirmation Dialog */}
+      {/* Enhanced Confirmation Dialog with ScrollArea */}
       <Dialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
-        <DialogContent className="sm:max-w-[600px]">
-          <DialogHeader>
+        <DialogContent className="sm:max-w-[600px] max-h-[80vh] flex flex-col">
+          <DialogHeader className="flex-shrink-0">
             <DialogTitle className="flex items-center text-green-700 text-xl">
               <CheckCircle className="w-6 h-6 mr-2" />
               Sinistre garanti - Dommages Tous Accidents
@@ -159,83 +161,102 @@ const Verification: React.FC = () => {
             </DialogDescription>
           </DialogHeader>
           
-          {/* Coverage Information */}
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4 my-4">
-            <div className="flex items-start">
-              <Shield className="w-5 h-5 mr-2 text-green-600 mt-0.5" />
-              <div>
-                <h4 className="font-semibold text-green-900">Garantie Dommages Tous Accidents</h4>
-                <p className="text-sm text-green-700 mt-1">
-                  Cette garantie couvre les dommages matériels causés à votre véhicule, quelle qu'en soit la cause (collision, vandalisme, intempéries, etc.).
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Damage Assessment */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-            <h4 className="font-semibold text-blue-900 mb-3">Évaluation des dommages</h4>
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-blue-700">Parties endommagées :</span>
-                <span className="text-sm font-medium text-blue-900">Pare-choc avant, Aile avant droite</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-blue-700">Type de dommages :</span>
-                <span className="text-sm font-medium text-blue-900">Bosses, Rayures profondes</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-blue-700">Estimation des réparations :</span>
-                <div className="flex items-center text-blue-900 font-bold">
-                  <Euro className="w-4 h-4 mr-1" />
-                  800
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Franchise Details */}
-          <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-            <div className="flex items-start mb-3">
-              <Info className="w-5 h-5 mr-2 text-orange-600 mt-0.5" />
-              <h4 className="font-semibold text-orange-900">Détails de la franchise</h4>
-            </div>
-            
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-orange-700">Franchise contractuelle :</span>
-                <div className="flex items-center text-orange-900 font-bold">
-                  <Euro className="w-4 h-4 mr-1" />
-                  150
-                </div>
-              </div>
-              
-              <div className="bg-white rounded p-3 border border-orange-200">
-                <div className="text-xs text-orange-700 mb-2">Calcul de l'indemnisation :</div>
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Montant des dégâts :</span>
-                    <span className="font-medium">800 €</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Franchise à déduire :</span>
-                    <span className="font-medium">- 150 €</span>
-                  </div>
-                  <hr className="border-orange-200" />
-                  <div className="flex justify-between font-bold text-orange-900">
-                    <span>Indemnisation nette :</span>
-                    <span>650 €</span>
+          <ScrollArea className="flex-1 pr-4">
+            <div className="space-y-4">
+              {/* Coverage Information */}
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <div className="flex items-start">
+                  <Shield className="w-5 h-5 mr-2 text-green-600 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-green-900">Garantie Dommages Tous Accidents</h4>
+                    <p className="text-sm text-green-700 mt-1">
+                      Cette garantie couvre les dommages matériels causés à votre véhicule lors d'un accident de parking avec tiers non identifié, incluant les dégâts de rétroviseur et carrosserie.
+                    </p>
                   </div>
                 </div>
               </div>
-              
-              <p className="text-xs text-orange-600">
-                * La franchise reste à votre charge et sera déduite du montant de l'indemnisation ou à régler directement au réparateur selon l'option choisie.
-              </p>
-            </div>
-          </div>
 
-          <DialogFooter className="mt-6">
+              {/* Damage Assessment */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <h4 className="font-semibold text-blue-900 mb-3">Évaluation des dommages</h4>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-blue-700">Lieu du sinistre :</span>
+                    <span className="text-sm font-medium text-blue-900">Parking Carrefour Montigny (78300)</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-blue-700">Parties endommagées :</span>
+                    <span className="text-sm font-medium text-blue-900">Rétroviseur droit, Aile avant droite</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-blue-700">Type de dommages :</span>
+                    <span className="text-sm font-medium text-blue-900">Rétroviseur cassé, Rayure longue</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-blue-700">État du véhicule :</span>
+                    <span className="text-sm font-medium text-blue-900">Roulant, aucun voyant ni fuite</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-blue-700">Estimation des réparations :</span>
+                    <div className="flex items-center text-blue-900 font-bold">
+                      <Euro className="w-4 h-4 mr-1" />
+                      800
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Franchise Details */}
+              <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                <div className="flex items-start mb-3">
+                  <Info className="w-5 h-5 mr-2 text-orange-600 mt-0.5" />
+                  <h4 className="font-semibold text-orange-900">Détails de la franchise - Dommages Tous Accidents</h4>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="text-sm text-orange-700 bg-orange-100 p-2 rounded">
+                    <strong>Type de sinistre :</strong> Accident de parking avec tiers non identifié<br/>
+                    <strong>Garantie activée :</strong> Dommages Tous Accidents (sans bonus/malus)
+                  </div>
+                  
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-orange-700">Franchise contractuelle :</span>
+                    <div className="flex items-center text-orange-900 font-bold">
+                      <Euro className="w-4 h-4 mr-1" />
+                      150
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white rounded p-3 border border-orange-200">
+                    <div className="text-xs text-orange-700 mb-2">Calcul de l'indemnisation :</div>
+                    <div className="space-y-1 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Montant des dégâts estimés :</span>
+                        <span className="font-medium">800 €</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Franchise à déduire :</span>
+                        <span className="font-medium">- 150 €</span>
+                      </div>
+                      <hr className="border-orange-200" />
+                      <div className="flex justify-between font-bold text-orange-900">
+                        <span>Indemnisation nette :</span>
+                        <span>650 €</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="text-xs text-orange-600 space-y-1">
+                    <p>• La franchise reste à votre charge et sera déduite du montant de l'indemnisation</p>
+                    <p>• Aucun impact sur votre bonus/malus (sinistre sans responsabilité)</p>
+                    <p>• Possibilité de règlement direct au réparateur agréé</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ScrollArea>
+
+          <DialogFooter className="flex-shrink-0 mt-4">
             <Button variant="outline" onClick={() => setShowConfirmDialog(false)}>
               Annuler
             </Button>
