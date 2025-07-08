@@ -4,7 +4,6 @@ import Timeline from '@/components/Timeline';
 import DossierInfo from '@/components/DossierInfo';
 import ContractInfo from '@/components/ContractInfo';
 import DocumentsClient from '@/components/contexte/DocumentsClient';
-import NextStepsClient from '@/components/contexte/NextStepsClient';
 
 const ContexteClient: React.FC = () => {
   return (
@@ -29,10 +28,9 @@ const ContexteClient: React.FC = () => {
             <DossierInfo showOnlyClientInfo={true} />
           </div>
 
-          {/* Right Column - Contrat et Prochaines étapes */}
+          {/* Right Column - Contrat uniquement */}
           <div className="space-y-6">
             <ContractInfo />
-            <NextStepsClient />
           </div>
         </div>
       </div>

@@ -23,8 +23,8 @@ const Timeline: React.FC = () => {
       description: 'Informations collectées et déclaration terminée',
       date: '15/01/2024',
       time: '09:30',
-      status: 'completed',
-      type: 'success'
+      status: isValidationCompleted ? 'completed' : 'current',
+      type: isValidationCompleted ? 'success' : 'info'
     },
     {
       id: '2',
@@ -32,8 +32,8 @@ const Timeline: React.FC = () => {
       description: 'Dossier n° SIN-2024-001234 ouvert',
       date: '15/01/2024',
       time: '09:35',
-      status: isValidationCompleted ? 'completed' : 'current',
-      type: isValidationCompleted ? 'success' : 'info'
+      status: isValidationCompleted ? 'completed' : 'pending',
+      type: isValidationCompleted ? 'success' : 'warning'
     },
     {
       id: '3', 
