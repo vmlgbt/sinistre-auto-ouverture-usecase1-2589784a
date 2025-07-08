@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Stepper from '@/components/declaration/Stepper';
@@ -267,7 +268,8 @@ const Verification: React.FC = () => {
             </div>
           </ScrollArea>
 
-          <DialogFooter className="flex-shrink-0 pt-4">
+          {/* Force visible footer with explicit styles */}
+          <div className="flex flex-row justify-end gap-2 pt-4 border-t bg-white">
             <Button variant="outline" onClick={() => setShowConfirmDialog(false)}>
               Annuler
             </Button>
@@ -285,7 +287,7 @@ const Verification: React.FC = () => {
             >
               Voir les solutions
             </Button>
-          </DialogFooter>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
