@@ -2,7 +2,9 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MapPin, Star, Calendar, Phone, Clock, CheckCircle } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { MapPin, Star, Calendar, Phone, Clock, CheckCircle, RefreshCw, User, Home } from 'lucide-react';
 
 interface Garage {
   id: string;
@@ -17,8 +19,14 @@ interface Garage {
 const PartnerGarages: React.FC = () => {
   const [selectedGarage, setSelectedGarage] = useState<string | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<{ date: string; time: string } | null>(null);
+  const [useCustomAddress, setUseCustomAddress] = useState(false);
+  const [customAddress, setCustomAddress] = useState('');
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const garages: Garage[] = [
+  // Adresse du client
+  const clientAddress = "15 Rue de la Paix, 78180 Montigny-le-Bretonneux";
+
+  const [garages, setGarages] = useState<Garage[]>([
     {
       id: '1',
       name: 'Garage Dupont - Partenaire AXA',
@@ -58,7 +66,7 @@ const PartnerGarages: React.FC = () => {
         { date: '2024-01-18', time: '10:00' }
       ]
     }
-  ];
+  ]);
 
   const handleBookAppointment = () => {
     if (selectedGarage && selectedSlot) {
@@ -67,10 +75,30 @@ const PartnerGarages: React.FC = () => {
     }
   };
 
+  const handleRefreshGarages = async () => {
+    if (!customAddress.trim()) return;
+    
+    setIsRefreshing(true);
+    
+    // Simulation d'un appel API
+    setTimeout(() => {
+      // Mise à jour simulée des garages avec nouvelles distances
+      const updatedGarages = garages.map(garage => ({
+        ...garage,
+        distance: `${(Math.random() * 10 + 1).toFixed(1)} km`
+      }));
+      
+      setGarages(updatedGarages);
+      setIsRefreshing(false);
+    }, 1500);
+  };
+
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
   };
+
+  const currentAddress = useCustomAddress && customAddress ? customAddress : clientAddress;
 
   return (
     <Card>
@@ -81,6 +109,78 @@ const PartnerGarages: React.FC = () => {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
+        {/* Adresse du client */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="flex items-start">
+            <User className="w-5 h-5 mr-2 text-blue-600 mt-0.5" />
+            <div>
+              <h4 className="font-semibold text-blue-900">Adresse du client</h4>
+              <p className="text-sm text-blue-700 mt-1">
+                Marc Dubois - {clientAddress}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Option d'adresse alternative */}
+        <div className="border border-gray-200 rounded-lg p-4">
+          <div className="flex items-center mb-3">
+            <input
+              type="checkbox"
+              id="useCustomAddress"
+              checked={useCustomAddress}
+              onChange={(e) => setUseCustomAddress(e.target.checked)}
+              className="mr-2"
+            />
+            <Label htmlFor="useCustomAddress" className="flex items-center cursor-pointer">
+              <Home className="w-4 h-4 mr-2 text-gray-600" />
+              Utiliser une autre adresse de récupération
+            </Label>
+          </div>
+          
+          {useCustomAddress && (
+            <div className="space-y-3">
+              <div>
+                <Label htmlFor="customAddress" className="text-sm font-medium">
+                  Adresse de récupération du véhicule
+                </Label>
+                <Input
+                  id="customAddress"
+                  value={customAddress}
+                  onChange={(e) => setCustomAddress(e.target.value)}
+                  placeholder="Saisir l'adresse complète..."
+                  className="mt-1"
+                />
+              </div>
+              <Button
+                onClick={handleRefreshGarages}
+                disabled={!customAddress.trim() || isRefreshing}
+                className="w-full"
+                variant="outline"
+              >
+                {isRefreshing ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                    Recherche en cours...
+                  </>
+                ) : (
+                  <>
+                    <RefreshCw className="w-4 h-4 mr-2" />
+                    Rafraîchir les garages
+                  </>
+                )}
+              </Button>
+            </div>
+          )}
+        </div>
+
+        {/* Affichage de l'adresse utilisée pour la recherche */}
+        <div className="text-sm text-gray-600 bg-gray-50 p-2 rounded flex items-center">
+          <MapPin className="w-4 h-4 mr-1" />
+          Garages recherchés depuis : <span className="font-medium ml-1">{currentAddress}</span>
+        </div>
+
+        {/* Liste des garages */}
         {garages.map((garage) => (
           <div key={garage.id} className={`border rounded-lg p-4 transition-all cursor-pointer ${
             selectedGarage === garage.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'

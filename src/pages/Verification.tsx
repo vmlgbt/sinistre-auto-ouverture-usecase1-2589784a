@@ -70,12 +70,13 @@ const Verification: React.FC = () => {
     setShowConfirmDialog(true);
   };
 
-  const handleDirectNext = () => {
+  const handleConfirmAndProceed = () => {
+    setShowConfirmDialog(false);
     window.history.pushState({}, '', '/?page=solutions');
     window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
-  const handleConfirmAndProceed = () => {
+  const handleDirectNext = () => {
     setShowConfirmDialog(false);
     window.history.pushState({}, '', '/?page=solutions');
     window.dispatchEvent(new PopStateEvent('popstate'));
@@ -112,23 +113,12 @@ const Verification: React.FC = () => {
       <div className="max-w-7xl mx-auto w-full flex-1 flex flex-col">
         {/* Header */}
         <div className="px-6 pt-6 pb-4 flex-shrink-0">
-          <div className="flex justify-between items-start">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                Vérification des informations - Dossier SIN-2024-001234
-              </h1>
-              <p className="text-gray-600">
-                Sinistre Auto - Marc Dubois - Peugeot 308 (AB-123-CD)
-              </p>
-            </div>
-            <Button 
-              onClick={handleDirectNext}
-              variant="outline"
-              className="bg-white border-blue-600 text-blue-600 hover:bg-blue-50"
-            >
-              Passer à l'étape suivante
-            </Button>
-          </div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            Vérification des informations - Dossier SIN-2024-001234
+          </h1>
+          <p className="text-gray-600">
+            Sinistre Auto - Marc Dubois - Peugeot 308 (AB-123-CD)
+          </p>
         </div>
 
         {/* Stepper */}
@@ -280,6 +270,9 @@ const Verification: React.FC = () => {
           <DialogFooter className="flex-shrink-0 pt-4">
             <Button variant="outline" onClick={() => setShowConfirmDialog(false)}>
               Annuler
+            </Button>
+            <Button variant="outline" onClick={handleDirectNext}>
+              Passer à l'étape suivante
             </Button>
             <Button onClick={handleConfirmAndProceed}>
               Voir les solutions
