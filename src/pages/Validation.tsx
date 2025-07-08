@@ -15,11 +15,11 @@ const Validation: React.FC = () => {
   const [emailSentBanner, setEmailSentBanner] = useState<string | null>(null);
 
   const handleNext = () => {
-    console.log('Finalisation du dossier - redirection vers contexte client');
+    console.log('Finalisation du dossier - redirection vers contexte client validation');
     // Marquer l'étape de validation comme terminée
     localStorage.setItem('validationCompleted', 'true');
-    // Rediriger vers la page contexte client
-    window.history.pushState({}, '', '/');
+    // Rediriger vers la nouvelle page contexte client validation
+    window.history.pushState({}, '', '/?page=contexte-client-validation');
     window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
