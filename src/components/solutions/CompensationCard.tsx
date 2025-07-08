@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle, Euro, Shield, Car } from 'lucide-react';
+import { CheckCircle, Euro, Shield, Car, Sparkle } from 'lucide-react';
 
 const CompensationCard: React.FC = () => {
   return (
@@ -11,9 +10,17 @@ const CompensationCard: React.FC = () => {
         <CardTitle className="flex items-center">
           <Shield className="w-5 h-5 mr-2 text-blue-600" />
           Proposition de dédommagement
+          <Sparkle className="w-4 h-4 ml-2 text-purple-600" />
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
+        <div className="bg-purple-50 border border-purple-200 rounded-lg p-3 mb-4">
+          <div className="flex items-center text-purple-800">
+            <Sparkle className="w-4 h-4 mr-2" />
+            <span className="text-sm font-medium">Montant calculé automatiquement par l'IA</span>
+          </div>
+        </div>
+
         <div className="bg-green-50 border border-green-200 rounded-lg p-4">
           <div className="flex items-center mb-3">
             <CheckCircle className="w-5 h-5 text-green-600 mr-2" />

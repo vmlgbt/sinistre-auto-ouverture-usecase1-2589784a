@@ -1,8 +1,10 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Download, Send } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft, Download, Send, Sparkle, Shield, MapPin } from 'lucide-react';
 import Header from '@/components/Header';
+import Stepper from '@/components/declaration/Stepper';
 import EvaluationCard from '@/components/solutions/EvaluationCard';
 import CompensationCard from '@/components/solutions/CompensationCard';
 import NextSteps from '@/components/solutions/NextSteps';
@@ -11,6 +13,7 @@ import DocumentsSection from '@/components/solutions/DocumentsSection';
 
 const Solutions: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState<'contexte' | 'declaration'>('declaration');
+  const [managerChoice, setManagerChoice] = React.useState<'compensation' | 'garage' | null>(null);
 
   const handleGoBack = () => {
     window.history.pushState({}, '', '/?page=verification');
@@ -25,6 +28,14 @@ const Solutions: React.FC = () => {
   const handleSendToClient = () => {
     console.log('Envoi des propositions au client');
     // Logique d'envoi
+  };
+
+  const handleChoiceSelect = (choice: 'compensation' | 'garage') => {
+    setManagerChoice(choice);
+  };
+
+  const handleBackToChoices = () => {
+    setManagerChoice(null);
   };
 
   return (
@@ -62,21 +73,102 @@ const Solutions: React.FC = () => {
           </p>
         </div>
 
+        {/* Stepper */}
+        <div className="flex-shrink-0">
+          <Stepper currentStep={3} />
+        </div>
+
         {/* Main Content */}
         <div className="grid grid-cols-12 gap-6 flex-1 px-6 pb-6">
           {/* Left Panel - Solutions */}
           <div className="col-span-8 space-y-6">
-            {/* Evaluation and Compensation Cards */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <EvaluationCard />
-              <CompensationCard />
-            </div>
-            
-            {/* Partner Garages */}
-            <PartnerGarages />
-            
-            {/* Documents Section */}
-            <DocumentsSection />
+            {!managerChoice ? (
+              // Choice Selection
+              <div className="space-y-6">
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                    Choisissez une solution pour le client
+                  </h2>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Compensation Choice */}
+                    <Card 
+                      className="cursor-pointer hover:shadow-md transition-shadow border-2 hover:border-blue-300"
+                      onClick={() => handleChoiceSelect('compensation')}
+                    >
+                      <CardHeader>
+                        <CardTitle className="flex items-center">
+                          <div className="flex items-center">
+                            <Shield className="w-6 h-6 mr-2 text-blue-600" />
+                            <span>Proposition de dédommagement</span>
+                            <Sparkle className="w-5 h-5 ml-2 text-purple-600" />
+                          </div>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-gray-600">
+                          Calculée automatiquement par l'IA en fonction des dommages évalués et des garanties du contrat.
+                        </p>
+                        <div className="mt-4 bg-purple-50 border border-purple-200 rounded-lg p-3">
+                          <div className="flex items-center text-purple-800">
+                            <Sparkle className="w-4 h-4 mr-2" />
+                            <span className="text-sm font-medium">Proposition générée par l'IA</span>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Garage Choice */}
+                    <Card 
+                      className="cursor-pointer hover:shadow-md transition-shadow border-2 hover:border-blue-300"
+                      onClick={() => handleChoiceSelect('garage')}
+                    >
+                      <CardHeader>
+                        <CardTitle className="flex items-center">
+                          <MapPin className="w-6 h-6 mr-2 text-green-600" />
+                          Proposer un garage partenaire
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-gray-600">
+                          Orienter le client vers un de nos garages partenaires AXA avec prise de rendez-vous directe.
+                        </p>
+                        <div className="mt-4 bg-green-50 border border-green-200 rounded-lg p-3">
+                          <span className="text-sm font-medium text-green-800">
+                            Réseau de garages certifiés AXA
+                          </span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              // Selected Choice Content
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-xl font-semibold text-gray-900">
+                    {managerChoice === 'compensation' ? 'Proposition de dédommagement' : 'Garages partenaires'}
+                  </h2>
+                  <Button variant="outline" onClick={handleBackToChoices}>
+                    Changer de solution
+                  </Button>
+                </div>
+
+                {managerChoice === 'compensation' && (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <EvaluationCard />
+                    <CompensationCard />
+                  </div>
+                )}
+
+                {managerChoice === 'garage' && (
+                  <PartnerGarages />
+                )}
+
+                {/* Documents Section - Always show when a choice is made */}
+                <DocumentsSection />
+              </div>
+            )}
           </div>
 
           {/* Right Panel - Next Steps */}
