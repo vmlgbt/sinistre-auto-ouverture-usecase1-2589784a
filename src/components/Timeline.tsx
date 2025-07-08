@@ -29,20 +29,20 @@ const Timeline: React.FC = () => {
     {
       id: '2',
       title: 'Ouverture du dossier',
-      description: 'Dossier n° SIN-2024-001234 en cours de traitement',
+      description: 'Dossier n° SIN-2024-001234 ouvert',
       date: '15/01/2024',
       time: '09:35',
-      status: 'completed',
-      type: 'success'
+      status: isValidationCompleted ? 'completed' : 'current',
+      type: isValidationCompleted ? 'success' : 'info'
     },
     {
       id: '3', 
       title: 'Validation gestionnaire',
-      description: 'Dossier validé par le gestionnaire et courrier envoyé au client',
-      date: isValidationCompleted ? '08/07/2025' : '15/01/2024',
-      time: isValidationCompleted ? '14:20' : '10:00',
-      status: isValidationCompleted ? 'completed' : 'current',
-      type: isValidationCompleted ? 'success' : 'info'
+      description: isValidationCompleted ? 'Dossier validé par le gestionnaire et courrier envoyé au client' : 'En attente de validation par le gestionnaire',
+      date: isValidationCompleted ? '08/07/2025' : 'À planifier',
+      time: isValidationCompleted ? '14:20' : '',
+      status: isValidationCompleted ? 'completed' : 'pending',
+      type: isValidationCompleted ? 'success' : 'warning'
     },
     {
       id: '4',
