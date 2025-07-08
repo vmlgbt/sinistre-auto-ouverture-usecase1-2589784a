@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Stepper from '@/components/declaration/Stepper';
@@ -15,7 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, Euro, Shield, Info } from 'lucide-react';
+import { CheckCircle, Euro, Shield, Info, Sparkle } from 'lucide-react';
 
 export interface VerificationData {
   contexte_client: {
@@ -156,8 +155,13 @@ const Verification: React.FC = () => {
             <DialogTitle className="flex items-center text-green-700 text-xl">
               <CheckCircle className="w-6 h-6 mr-2" />
               Sinistre garanti - Dommages Tous Accidents
+              <Sparkle className="w-5 h-5 ml-2 text-blue-500" />
             </DialogTitle>
             <DialogDescription className="text-base pt-2">
+              <div className="flex items-center text-sm text-blue-600 mb-2">
+                <Sparkle className="w-4 h-4 mr-1" />
+                Analyse réalisée par IA
+              </div>
               Suite aux informations saisies, nous confirmons que votre sinistre est bien garanti par votre contrat d'assurance au titre de la garantie "Dommages Tous Accidents".
             </DialogDescription>
           </DialogHeader>
