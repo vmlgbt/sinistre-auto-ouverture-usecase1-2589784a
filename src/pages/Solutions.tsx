@@ -6,6 +6,7 @@ import { ArrowLeft, Download, Send, Sparkle, Shield, MapPin } from 'lucide-react
 import Header from '@/components/Header';
 import Stepper from '@/components/declaration/Stepper';
 import EvaluationCard from '@/components/solutions/EvaluationCard';
+import RecapitulatifSection from '@/components/solutions/RecapitulatifSection';
 import CompensationCard from '@/components/solutions/CompensationCard';
 import PartnerGarages from '@/components/solutions/PartnerGarages';
 import BottomBar from '@/components/declaration/BottomBar';
@@ -90,7 +91,15 @@ const Solutions: React.FC = () => {
         {/* Main Content - Centered layout */}
         <div className="max-w-4xl mx-auto w-full flex-1 px-6 pb-32">
           <div className="space-y-6">
-            {/* Always show Evaluation Card first */}
+            {/* Récapitulatif Section */}
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                Récapitulatif du sinistre
+              </h2>
+              <RecapitulatifSection />
+            </div>
+
+            {/* Evaluation Card */}
             <div>
               <h2 className="text-xl font-semibold text-gray-900 mb-4">
                 Évaluation du sinistre

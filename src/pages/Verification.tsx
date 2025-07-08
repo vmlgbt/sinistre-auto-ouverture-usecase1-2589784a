@@ -6,7 +6,6 @@ import BottomBar from '@/components/declaration/BottomBar';
 import VerificationForm from '@/components/verification/VerificationForm';
 import ManagerNotes from '@/components/verification/ManagerNotes';
 import VerificationHeader from '@/components/verification/VerificationHeader';
-import ConfirmationDialog from '@/components/verification/ConfirmationDialog';
 
 export interface VerificationData {
   contexte_client: {
@@ -27,7 +26,6 @@ const Verification: React.FC = () => {
   const [currentStep] = useState(2);
   const [managerNotes, setManagerNotes] = useState('');
   const [activeTab, setActiveTab] = useState<'contexte' | 'declaration'>('declaration');
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   const [verificationData, setVerificationData] = useState<VerificationData>({
     contexte_client: {
@@ -59,17 +57,6 @@ const Verification: React.FC = () => {
   });
 
   const handleNext = () => {
-    setShowConfirmDialog(true);
-  };
-
-  const handleConfirmAndProceed = () => {
-    setShowConfirmDialog(false);
-    window.history.pushState({}, '', '/?page=solutions');
-    window.dispatchEvent(new PopStateEvent('popstate'));
-  };
-
-  const handleDirectNext = () => {
-    setShowConfirmDialog(false);
     window.history.pushState({}, '', '/?page=solutions');
     window.dispatchEvent(new PopStateEvent('popstate'));
   };
@@ -136,14 +123,6 @@ const Verification: React.FC = () => {
         onNext={handleNext}
         onPrevious={handlePrevious}
         isNextDisabled={isNextDisabled()}
-      />
-
-      {/* Confirmation Dialog */}
-      <ConfirmationDialog
-        open={showConfirmDialog}
-        onOpenChange={setShowConfirmDialog}
-        onConfirmAndProceed={handleConfirmAndProceed}
-        onDirectNext={handleDirectNext}
       />
     </div>
   );
