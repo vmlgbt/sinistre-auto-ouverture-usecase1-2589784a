@@ -8,10 +8,12 @@ import ClientVehicleData from '@/components/validation/ClientVehicleData';
 import DocumentsManager from '@/components/validation/DocumentsManager';
 import MailTemplate from '@/components/validation/MailTemplate';
 import NextStepsPanel from '@/components/validation/NextStepsPanel';
+import { CheckCircle, X } from 'lucide-react';
 
 const Validation: React.FC = () => {
   const [currentStep] = useState(4);
   const [activeTab, setActiveTab] = useState<'contexte' | 'declaration'>('declaration');
+  const [emailSentBanner, setEmailSentBanner] = useState<string | null>(null);
 
   const handleNext = () => {
     console.log('Finalisation du dossier');
@@ -23,9 +25,36 @@ const Validation: React.FC = () => {
     window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
+  const handleEmailSent = (email: string) => {
+    setEmailSentBanner(email);
+    // Auto-hide banner after 5 seconds
+    setTimeout(() => {
+      setEmailSentBanner(null);
+    }, 5000);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header activeTab={activeTab} onTabChange={setActiveTab} />
+      
+      {/* Success Banner */}
+      {emailSentBanner && (
+        <div className="bg-green-50 border border-green-200 px-6 py-3 flex items-center justify-between">
+          <div className="flex items-center text-green-800">
+            <CheckCircle className="w-5 h-5 mr-2" />
+            <span className="font-medium">
+              Courrier envoyé avec succès à l'adresse : {emailSentBanner}
+            </span>
+          </div>
+          <button
+            onClick={() => setEmailSentBanner(null)}
+            className="text-green-600 hover:text-green-800"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
       <div className="max-w-7xl mx-auto w-full flex-1 flex flex-col">
         {/* Header */}
         <div className="px-6 pt-6 pb-4 flex-shrink-0">
@@ -54,7 +83,7 @@ const Validation: React.FC = () => {
 
           {/* Right Panel - Mail Template */}
           <div className="col-span-5">
-            <MailTemplate />
+            <MailTemplate onEmailSent={handleEmailSent} />
           </div>
         </div>
       </div>

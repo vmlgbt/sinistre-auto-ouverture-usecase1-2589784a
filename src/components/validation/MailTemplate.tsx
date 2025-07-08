@@ -4,9 +4,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Send, Printer, Sparkle, Edit } from 'lucide-react';
+import EmailConfirmationDialog from './EmailConfirmationDialog';
 
-const MailTemplate: React.FC = () => {
+interface MailTemplateProps {
+  onEmailSent: (email: string) => void;
+}
+
+const MailTemplate: React.FC<MailTemplateProps> = ({ onEmailSent }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [showEmailDialog, setShowEmailDialog] = useState(false);
   const [emailContent, setEmailContent] = useState(`Objet : Déclaration d'accident de parking - N° de sinistre :170492218073
 
 Madame, Monsieur Dubois,
@@ -39,8 +45,12 @@ Service Sinistres AXA
 Gestionnaire : Marie Dupont`);
 
   const handleSendEmail = () => {
-    console.log('Envoi par email');
-    // Logique d'envoi email
+    setShowEmailDialog(true);
+  };
+
+  const handleEmailConfirm = (email: string) => {
+    console.log('Envoi par email à:', email);
+    onEmailSent(email);
   };
 
   const handleSendMail = () => {
@@ -53,63 +63,71 @@ Gestionnaire : Marie Dupont`);
   };
 
   return (
-    <Card className="h-fit">
-      <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center">
-            <Mail className="w-5 h-5 mr-2 text-blue-600" />
-            Modèle de courrier
+    <>
+      <Card className="h-fit">
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between">
+            <div className="flex items-center">
+              <Mail className="w-5 h-5 mr-2 text-blue-600" />
+              Modèle de courrier
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleEdit}
+              className="flex items-center"
+            >
+              <Edit className="w-4 h-4 mr-1" />
+              {isEditing ? 'Aperçu' : 'Éditer'}
+            </Button>
+          </CardTitle>
+          <div className="flex items-center text-sm text-purple-600 bg-purple-50 border border-purple-200 rounded-lg p-2">
+            <Sparkle className="w-4 h-4 mr-2" />
+            Modèle généré par l'IA d'après les informations saisies
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleEdit}
-            className="flex items-center"
-          >
-            <Edit className="w-4 h-4 mr-1" />
-            {isEditing ? 'Aperçu' : 'Éditer'}
-          </Button>
-        </CardTitle>
-        <div className="flex items-center text-sm text-purple-600 bg-purple-50 border border-purple-200 rounded-lg p-2">
-          <Sparkle className="w-4 h-4 mr-2" />
-          Modèle généré par l'IA d'après les informations saisies
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {isEditing ? (
-          <Textarea
-            value={emailContent}
-            onChange={(e) => setEmailContent(e.target.value)}
-            className="min-h-[400px] text-sm font-mono"
-            placeholder="Contenu du courrier..."
-          />
-        ) : (
-          <div className="bg-gray-50 border rounded-lg p-4 max-h-[400px] overflow-y-auto">
-            <pre className="text-sm whitespace-pre-wrap text-gray-800 font-sans">
-              {emailContent}
-            </pre>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {isEditing ? (
+            <Textarea
+              value={emailContent}
+              onChange={(e) => setEmailContent(e.target.value)}
+              className="min-h-[400px] text-sm font-mono"
+              placeholder="Contenu du courrier..."
+            />
+          ) : (
+            <div className="bg-gray-50 border rounded-lg p-4 max-h-[400px] overflow-y-auto">
+              <pre className="text-sm whitespace-pre-wrap text-gray-800 font-sans">
+                {emailContent}
+              </pre>
+            </div>
+          )}
+
+          <div className="flex flex-col gap-2">
+            <Button onClick={handleSendEmail} className="w-full">
+              <Send className="w-4 h-4 mr-2" />
+              Envoyer par email
+            </Button>
+            <Button variant="outline" onClick={handleSendMail} className="w-full">
+              <Printer className="w-4 h-4 mr-2" />
+              Envoyer par courrier
+            </Button>
           </div>
-        )}
 
-        <div className="flex flex-col gap-2">
-          <Button onClick={handleSendEmail} className="w-full">
-            <Send className="w-4 h-4 mr-2" />
-            Envoyer par email
-          </Button>
-          <Button variant="outline" onClick={handleSendMail} className="w-full">
-            <Printer className="w-4 h-4 mr-2" />
-            Envoyer par courrier
-          </Button>
-        </div>
+          <div className="text-xs text-gray-500 bg-gray-50 border rounded p-2">
+            <p className="font-medium mb-1">Informations d'envoi :</p>
+            <p>• L'email sera envoyé à l'adresse du contrat</p>
+            <p>• Le courrier sera envoyé à l'adresse de correspondance</p>
+            <p>• Une copie sera archivée dans le dossier</p>
+          </div>
+        </CardContent>
+      </Card>
 
-        <div className="text-xs text-gray-500 bg-gray-50 border rounded p-2">
-          <p className="font-medium mb-1">Informations d'envoi :</p>
-          <p>• L'email sera envoyé à l'adresse du contrat</p>
-          <p>• Le courrier sera envoyé à l'adresse de correspondance</p>
-          <p>• Une copie sera archivée dans le dossier</p>
-        </div>
-      </CardContent>
-    </Card>
+      <EmailConfirmationDialog
+        open={showEmailDialog}
+        onOpenChange={setShowEmailDialog}
+        onConfirm={handleEmailConfirm}
+      />
+    </>
   );
 };
 
