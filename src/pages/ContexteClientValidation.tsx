@@ -22,17 +22,17 @@ const ContexteClientValidation: React.FC = () => {
 
         {/* Main Content Grid - Réorganisé en 2 colonnes */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Left Column - Timeline, Documents Client et Coordonnées Client */}
+          {/* Left Column - Timeline, Prochaines étapes, Documents Client et Coordonnées Client */}
           <div className="space-y-6">
             <Timeline />
+            <NextStepsClient />
             <DocumentsClient />
             <DossierInfo showOnlyClientInfo={true} />
           </div>
 
-          {/* Right Column - Contrat et Prochaines étapes */}
+          {/* Right Column - Contrat */}
           <div className="space-y-6">
             <ContractInfo />
-            <NextStepsClient />
           </div>
         </div>
       </div>
